@@ -27,15 +27,15 @@ This is a starting template for Django 1.4 projects using (a slightly modified v
         
     * To use plain CSS:
 
-            django-admin.py startproject --template https://github.com/chrislawlor/django-project-skel/zipball/master --extension py,md,gitignore,dist yourprojectname
+            django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/master --extension py,md,gitignore,dist yourprojectname
 
     * To use LESS:
 
-            django-admin.py startproject --template https://github.com/chrislawlor/django-project-skel/zipball/less --extension py,md,gitignore,dist yourprojectname
+            django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/less --extension py,md,gitignore,dist yourprojectname
     
     * To use Twitter's Bootstrap
     
-            django-admin.py startproject --template https://github.com/chrislawlor/django-project-skel/zipball/bootstrap --extension py,md,gitignore,dist yourprojectname
+            django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/bootstrap --extension py,md,gitignore,dist yourprojectname
 
 
 {% endif %}

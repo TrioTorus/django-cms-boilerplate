@@ -21,7 +21,13 @@
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
+  {% if debug %}
+  <link rel="stylesheet/less" href="{{ STATIC_URL }}less/style.less">
+  <script src="{{ STATIC_URL }}js/libs/less-1.3.0.min.js"></script>
+  {% else %}
   <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" />
+  {% endif %}
+  
   {% block extra_head %}{% endblock %}
 
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->

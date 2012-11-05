@@ -7,6 +7,7 @@ REPO = "git@bitbucket.org:dries/{{ project_name }}"
 def bootstrap():
     run("mkvirtualenv {{ project_name }}")
     run("pip install -E {{ project_name }} -r requirements.txt")
+
 def production():
     """ Use production server settings """
     

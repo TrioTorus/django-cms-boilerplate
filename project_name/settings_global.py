@@ -10,11 +10,15 @@ PUBLIC_DIR = os.path.join(PROJECT_DIR, 'public')
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Brussels'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'nl-BE'
+
+LANGUAGES = [
+    ('nl', 'Dutch'),
+]
 
 SITE_ID = 1
 
@@ -49,7 +53,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_DIR, 'web'),
+    
 )
 
 # List of finder classes that know how to find static files in
@@ -82,7 +86,7 @@ WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
-    os.path.join(PROJECT_DIR, 'templates'),
+    
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -95,10 +99,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
 )
 
-FIXTURE_DIRS = (
-    os.path.join(PROJECT_DIR, 'fixtures'),
-)
-
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -107,6 +107,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    '{{ project_name }}'
 )
 
 # A sample logging configuration. The only tangible logging

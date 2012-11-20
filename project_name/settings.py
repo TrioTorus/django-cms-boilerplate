@@ -76,6 +76,11 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'cms.middleware.multilingual.MultilingualURLMiddleware',
+    'cms.middleware.page.CurrentPageMiddleware',
+    'cms.middleware.user.CurrentUserMiddleware',
+    'cms.middleware.toolbar.ToolbarMiddleware',
 )
 
 ROOT_URLCONF = '{{ project_name }}.urls'
@@ -97,6 +102,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.static',
     'django.core.context_processors.request',
+
+    'cms.context_processors.media',
+    'sekizai.context_processors.sekizai',
 )
 
 INSTALLED_APPS = (
@@ -107,7 +115,28 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    '{{ project_name }}'
+    '{{ project_name }}',
+
+    # Django-cms:
+    'cms',
+    'mptt',
+    'menus',
+    'south',
+    'sekizai',
+    'cms.plugins.file',
+    'cms.plugins.link',
+    'cms.plugins.picture',
+    'cms.plugins.text',
+    'cmsplugin_blog',
+    'cmsplugin_gallery',
+    'easy_thumbnails',
+    'inline_ordering',
+    'tagging', # Dependancy of cmsplugin_blog
+    'simple_translation', # Dependancy of cmsplugin_blog
+    'djangocms_utils', # Dependancy of cmsplugin_blog
+
+    'form_designer',
+    'form_designer.contrib.cms_plugins.form_designer_form',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -137,4 +166,16 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+# DJANGO-CMS settings:
+CMS_SEO_FIELDS = True
+CMS_TEMPLATES = (
+    ('cms/default.html', 'Standaard'),
+    ('cms/home.html', 'Home Page'),
+    ('cms/empty.html', 'Leeg'),
+)
+
+CMS_PLACEHOLDER_CONF = {
+    
 }

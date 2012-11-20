@@ -6,7 +6,7 @@ from fabric.contrib import django
 django.project('{{ project_name }}')
 from django.conf import settings
 
-env.projectname = settings.PROJECTNAME
+env.projectname = "{{ project_name }}"
 env.repo = "git@bitbucket.org:dries/%(projectname)s" % env
 
 def production():

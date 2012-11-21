@@ -4,6 +4,6 @@ flup
 
 PIL
 
-django-cms==2.3.3
+django-cms<2.4
 cmsplugin-blog==1.1.2
 cmsplugin_gallery==0.5.3

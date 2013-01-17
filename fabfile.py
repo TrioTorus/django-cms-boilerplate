@@ -16,7 +16,7 @@ def production():
     env['projectdir'] = "$HOME/src/%(projectname)s-prod" % env
     env['branch'] = 'master'
     env['venv'] = "%(projectname)s-prod" % env
-    django.settings_module("%(projectname)s.settings" % env)
+    django.settings_module("%(projectname)s.settings_dev" % env)
     
 def stage():
     """ Use staging server settings """

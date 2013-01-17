@@ -56,25 +56,18 @@ Describe {{ project_name }} here.
 
 ## Installation ##
 
-### Creating the environment ###
-
-Create a virtual python environment for the project.
-If you're not using virtualenv or virtualenvwrapper you may skip this step.
-
-#### For virtualenvwrapper ####
-
-        mkvirtualenv --no-site-packages {{ project_name }}-env
-
-#### For virtualenv ####
-
-        virtualenv --no-site-packages {{ project_name }}-env
-        source {{ project_name }}-env/bin/activate
-
 ### Clone the code ###
 
 Obtain the url to your git repository.
 
         git clone <URL_TO_GIT_RESPOSITORY> {{ project_name }}
+
+### Creating the environment ###
+
+Create a virtual python environment for the project. If you're using virtualenvwrapper,
+it's simple. There is a bash script in the repo that you need to source:
+
+        source bootstrap.sh
 
 ### Install requirements ###
 

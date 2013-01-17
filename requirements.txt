@@ -3,7 +3,11 @@ south
 flup
 
 PIL
+easy-thumbnails==1.1
 
-django-cms==2.3.3
-cmsplugin-blog==1.1.2
-cmsplugin_gallery==0.5.3
+django-cms==2.3.5
+
+# Plugins, uncomment as neeeded
+# cmsplugin-blog==1.1.2
+# cmsplugin_gallery==0.5.3
+# -e git://github.com/TrioTorus/django-form-designer.git#egg=django-form-designer

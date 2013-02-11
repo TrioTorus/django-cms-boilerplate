@@ -3,29 +3,37 @@ import os
 from fabric.api import *
 from fabric.contrib import django
 import site
-from django.conf import settings
 
 env.projectname = "{{ project_name }}"
+django.project('%(projectname)s' % env)
+from django.conf import settings
 env.repo = "git@bitbucket.org:dries/%(projectname)s" % env
-django.project(env.projectname)
+env.less = False
+django.settings_module('%(projectname)s.settings.dev' % env )
 
 def production():
     """ Use production server settings """
     
-    env.hosts=['urga@ssh.alwaysdata.com:22']
-    env['projectdir'] = "$HOME/src/%(projectname)s-prod" % env
+    env['suffix'] = "prod"
+    env['hosts']=['urga@ssh.alwaysdata.com:22']
+    env['projectdir'] = "$HOME/src/%(projectname)s-%(suffix)s" % env
+    env['mediadir'] = "~/www/media-%(projectname)s-%(suffix)s" % env
     env['branch'] = 'master'
-    env['venv'] = "%(projectname)s-prod" % env
-    django.settings_module("%(projectname)s.settings_dev" % env)
+    env['venv'] = "%(projectname)s-%(suffix)s" % env
+    env['settings_module'] = "%(projectname)s.settings.%(suffix)s" % env
+    django.settings_module(env['settings_module'])
     
-def stage():
+def staging():
     """ Use staging server settings """
     
-    env.hosts=['urga@ssh.alwaysdata.com:22']
-    env['projectdir'] = "$HOME/src/%(projectname)s-stage" % env
+    env['suffix'] = "staging"
+    env['hosts']=['urga@ssh.alwaysdata.com:22']
+    env['projectdir'] = "$HOME/src/%(projectname)s-%(suffix)s" % env
+    env['mediadir'] = "~/www/media-%(projectname)s-%(suffix)s" % env
     env['branch'] = 'develop'
-    env['venv'] = "%(projectname)s-stage" % env
-    django.settings_module("%(projectname)s.settings_stage" % env)
+    env['venv'] = "%(projectname)s-%(suffix)s" % env
+    env['settings_module'] = "%(projectname)s.settings.%(suffix)s" % env
+    django.settings_module(env['settings_module'])
 
 def init_virtualenv():
     run("mkvirtualenv %(venv)s" % env)
@@ -35,11 +43,16 @@ def init_virtualenv():
     with prefix('workon %(venv)s' % env):
         run("pip install -r requirements.txt")
 
-def update():
-    with prefix('workon %s' % env.venv):
+def update(skipreq=False):
+    with prefix('workon %(venv)s' % env):
         run('git pull')
-        run('lessc -x %(projectname)s/static/less/style.less > %(projectname)s/static/css/style.css' % env)
-        run('./manage.py collectstatic --noinput')
+        if env.less:
+            run('lessc -x %(projectname)s/static/less/style.less > %(projectname)s/static/css/style.css' % env)
+        if not skipreq:
+            run('pip install -r requirements.txt --upgrade')
+        run('./manage.py collectstatic --noinput --settings=%(settings_module)s' % env)
+        run('cp apache/.htaccess public/')
+        run('cp apache/django_%(suffix)s.fcgi public/django.fcgi' % env)
 
 def deploy():
     """Delete and initialize deployment on the target server"""
@@ -49,7 +62,7 @@ def deploy():
     update()
 
 def copyfixturesmedia():
-    local("cp -r %(projectname)s/fixtures/media/* public/media/" % env )
+    local("cp -r %(projectname)s/fixtures/media/* public/media/" % env)
 
 def savemediatofixtures():
     """Copy current user content to fixtures."""
@@ -58,7 +71,7 @@ def savemediatofixtures():
 def dumpdata():
     site.addsitedir(os.path.abspath(os.path.dirname(__file__)))
     from django.conf import settings
-    local("PGPASSWORD=%s pg_dump -O -h %s -U %s %s > dumpdata.sql" % (
+    local("PGPASSWORD=%s pg_dump -O -x -h %s -U %s %s > dumpdata.sql" % (
         settings.DATABASES['default']['PASSWORD'],
         settings.DATABASES['default']['HOST'],
         settings.DATABASES['default']['USER'],
@@ -76,3 +89,13 @@ def restoredata():
         settings.DATABASES['default']['NAME'],
         )
     )
+
+def getmedia():
+    local('rm -r public/media')
+    local('mkdir public/media')
+    get('%(mediadir)s/*' % env, 'public/media/')
+
+def putmedia():
+    run('mkdir -p %(mediadir)s' % env)
+    run('ln -snf %(mediadir)s %(projectdir)s/public/media' % env)
+    put('public/media/*', '%(mediadir)s' % env)

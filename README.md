@@ -25,19 +25,19 @@ This is a starting template for Django 1.4 projects using (a slightly modified v
         
     * To use plain CSS:
 
-            django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/master --extension py,md,gitignore,dist,sh yourprojectname
+            django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/master --extension py,md,gitignore,dist,sh,fcgi yourprojectname
 
     * To use LESS:
 
-            django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/less --extension py,md,gitignore,dist,sh yourprojectname
+            django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/less --extension py,md,gitignore,dist,sh,fcgi yourprojectname
 
     * To use Twitter's Bootstrap:
     
-            django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/bootstrap --extension py,md,gitignore,dist,sh yourprojectname
+            django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/bootstrap --extension py,md,gitignore,dist,sh,fcgi yourprojectname
 
     * To use django-cms:
     
-            django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/django-cms --extension py,md,gitignore,dist,sh yourprojectname
+            django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/django-cms --extension py,md,gitignore,dist,sh,fcgi yourprojectname
 
 {% endif %}
 # {{ project_name|title }} Django Project #

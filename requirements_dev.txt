@@ -1,2 +1,3 @@
--r req-1.txt
+-r requirements.txt
+django-debug-toolbar
 ipdb==0.7

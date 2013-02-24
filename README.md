@@ -12,8 +12,9 @@ This is a starting template for Django 1.4 projects using (a slightly modified v
 * Django timezone setting changed to CET for sanity.
 * HTML 5 base template with simple 404 and 500 error templates.
 * Encourages the use of split developer/stagine/production specific `settings' module.
-* Encourages the use of virtualenv and virtualenvwrapper.
+* Encourages the use of virtualenvwrapper.
 * Encourages the use of pip and separate developer and production requirements files.
+* Uses Pillow as a setuptools frienldy PIL drop-in replacement
 * Encourages the use of git.
 * Includes a .gitignore for the usual junk.
 * Automatically builds a README with installation notes.

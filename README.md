@@ -3,19 +3,20 @@
 
 ## About
 
-This is a starting template for Django 1.4 projects using (a slightly modified version of) [HTML5 Boilerplate](http://html5boilerplate.com).
+This is a starting Django project template for [Django-CMS](http://www.django-cms.org/) projects based on [HTML5 Boilerplate](http://html5boilerplate.com) and [Bootstrap](http://twitter.github.com/bootstrap/index.html).
 
 ## Features ##
 
+* Ready-to-go Django-cms template project.
+* Uses tinymce as textarea editor, with sanitized minimalistic look.
 * Collects static and media into public/{static,media} respectively.
 * Django admin activated by default.
 * Django timezone setting changed to CET for sanity.
-* HTML 5 base template with simple 404 and 500 error templates.
-* Encourages the use of split developer/stagine/production specific `settings' module.
-* Encourages the use of virtualenvwrapper.
+* HTML 5 base template with simple 404 and 500 error templates, based on HTML5 boilerplate AND Bootstrap.
+* Encourages the use of split developer/staging/production specific `settings' module.
 * Encourages the use of pip and separate developer and production requirements files.
-* Uses Pillow as a setuptools frienldy PIL drop-in replacement
-* Encourages the use of git.
+* Includes a simple but useful fabfile.
+* Uses Pillow as a setuptools friendly PIL drop-in replacement
 * Includes a .gitignore for the usual junk.
 * Automatically builds a README with installation notes.
 

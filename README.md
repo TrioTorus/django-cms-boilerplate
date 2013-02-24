@@ -18,7 +18,7 @@ This is a starting template for Django 1.4 projects using (a slightly modified v
 * Includes a .gitignore for the usual junk.
 * Automatically builds a README with installation notes.
 
-## How to use this template to create your project ##
+## Step 1: How to use this template to create your project ##
 
 * Install Django 1.4
 * Run the following one of the following commands, specifying your project name:
@@ -39,7 +39,9 @@ This is a starting template for Django 1.4 projects using (a slightly modified v
     
             django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/django-cms --extension py,md,gitignore,dist,sh,fcgi yourprojectname
 
-## Initialize your development environment ##
+## Step 2: Initialize your development environment ##
+
+Go into your newly created project folder and type:
     
     source bootstrap.sh
 

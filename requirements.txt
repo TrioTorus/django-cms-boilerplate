@@ -12,5 +12,5 @@ django-tinymce==1.5.1b4
 # Plugins, uncomment as neeeded
 # cmsplugin-blog==1.1.2
 # cmsplugin_gallery==0.5.3
-# -e git://github.com/TrioTorus/django-form-designer.git#egg=django-form-designer
+git+git://github.com/TrioTorus/django-form-designer.git#egg=django-form-designer
 

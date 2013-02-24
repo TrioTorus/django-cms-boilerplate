@@ -152,15 +152,15 @@ INSTALLED_APPS = (
     'cms.plugins.link',
     'cms.plugins.picture',
     'cms.plugins.text',
-    'cmsplugin_blog',
-    'cmsplugin_gallery',
+    # 'cmsplugin_blog',
+    # 'cmsplugin_gallery',
     'cmsworkaround',
     'easy_thumbnails',
     'inline_ordering',
     'tinymce',
-    'tagging', # Dependancy of cmsplugin_blog
-    'simple_translation', # Dependancy of cmsplugin_blog
-    'djangocms_utils', # Dependancy of cmsplugin_blog
+    # 'tagging', # Dependancy of cmsplugin_blog
+    # 'simple_translation', # Dependancy of cmsplugin_blog
+    # 'djangocms_utils', # Dependancy of cmsplugin_blog
 
     'form_designer',
     'form_designer.contrib.cms_plugins.form_designer_form',

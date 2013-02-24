@@ -42,6 +42,8 @@ Go into your newly created project folder and type:
     
     source bootstrap.sh
 
+Anything that is under this line is going to end up in your project's README:
+
 {% endif %}
 # {{ project_name|title }} Django Project #
 

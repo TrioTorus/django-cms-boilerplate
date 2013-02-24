@@ -1,9 +1,11 @@
 {% if False %}
-# Django 1.4 with HTML5★Boilerplate Project Template
+# Django Project Template
+
 
 ## About
 
 This is a starting Django project template for [Django-CMS](http://www.django-cms.org/) projects based on [HTML5 Boilerplate](http://html5boilerplate.com) and [Bootstrap](http://twitter.github.com/bootstrap/index.html).
+
 
 ## Features ##
 
@@ -20,16 +22,19 @@ This is a starting Django project template for [Django-CMS](http://www.django-cm
 * Includes a .gitignore for the usual junk.
 * Automatically builds a README with installation notes.
 
+
 ## Requirements ##
 
 * Django > 1.4
 * Virtualenvwrapper
 
+
 ## Step 1: How to use this template to create your project ##
 
-* Run the following command, specifying your project name:
-    
+Run the following command, specifying your project name:
+
     django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/django-cms --extension py,md,gitignore,dist,sh,fcgi YOURPROJECTNAME
+
 
 ## Step 2: Initialize your development environment ##
 

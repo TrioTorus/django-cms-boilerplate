@@ -19,6 +19,11 @@ This is a starting template for Django 1.4 projects using (a slightly modified v
 * Includes a .gitignore for the usual junk.
 * Automatically builds a README with installation notes.
 
+## Requirements ##
+
+* Django > 1.4
+* Virtualenvwrapper
+
 ## Step 1: How to use this template to create your project ##
 
 * Install Django 1.4

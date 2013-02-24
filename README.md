@@ -7,12 +7,12 @@ This is a starting Django project template for [Django-CMS](http://www.django-cm
 
 ## Features ##
 
-* Ready-to-go Django-cms template project.
-* Uses tinymce as textarea editor, with sanitized minimalistic look.
+* Tinymce as textarea editor, with sanitized minimalistic look.
 * Collects static and media into public/{static,media} respectively.
 * Django admin activated by default.
 * Django timezone setting changed to CET for sanity.
 * HTML 5 base template with simple 404 and 500 error templates, based on HTML5 boilerplate AND Bootstrap.
+* Encourages the use of LESS css.
 * Encourages the use of split developer/staging/production specific `settings' module.
 * Encourages the use of pip and separate developer and production requirements files.
 * Includes a simple but useful fabfile.
@@ -27,24 +27,9 @@ This is a starting Django project template for [Django-CMS](http://www.django-cm
 
 ## Step 1: How to use this template to create your project ##
 
-* Install Django 1.4
-* Run the following one of the following commands, specifying your project name:
-        
-    * To use plain CSS:
-
-            django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/master --extension py,md,gitignore,dist,sh,fcgi yourprojectname
-
-    * To use LESS:
-
-            django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/less --extension py,md,gitignore,dist,sh,fcgi yourprojectname
-
-    * To use Twitter's Bootstrap:
+* Run the following command, specifying your project name:
     
-            django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/bootstrap --extension py,md,gitignore,dist,sh,fcgi yourprojectname
-
-    * To use django-cms:
-    
-            django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/django-cms --extension py,md,gitignore,dist,sh,fcgi yourprojectname
+    django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/django-cms --extension py,md,gitignore,dist,sh,fcgi YOURPROJECTNAME
 
 ## Step 2: Initialize your development environment ##
 

@@ -95,8 +95,7 @@ MIDDLEWARE_CLASSES = (
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
-    'simple_translation.middleware.MultilingualGenericsMiddleware',
-    # 'middleware.custom_middleware.intercept_request',
+    # 'simple_translation.middleware.MultilingualGenericsMiddleware',
 )
 
 ROOT_URLCONF = '{{ project_name }}.urls'
@@ -154,9 +153,9 @@ INSTALLED_APPS = (
     'cms.plugins.text',
     # 'cmsplugin_blog',
     # 'cmsplugin_gallery',
+    # 'inline_ordering',
     'cmsworkaround',
     'easy_thumbnails',
-    'inline_ordering',
     'tinymce',
     # 'tagging', # Dependancy of cmsplugin_blog
     # 'simple_translation', # Dependancy of cmsplugin_blog
@@ -203,7 +202,7 @@ CMS_TEMPLATES = (
     # ('cms/default_child.html', 'Default_Child'),
     ('cms/empty.html', 'Leeg'),
     # ('cms/home.html', 'Extra_Placeholder_Page'),
-    ('cms/3column.html', '3 Kolommen'),
+    ('cms/home.html', 'Home'),
 )
 
 CMS_PLACEHOLDER_CONF = {

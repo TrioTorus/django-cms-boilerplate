@@ -43,7 +43,8 @@ def init_virtualenv():
     with prefix('workon %(venv)s' % env):
         run("pip install -r requirements.txt")
 
-def update(skipreq=False):
+def update(skipreq=True):
+    "Update the deployment. By default it skips checking requirements. Use skipreq=True to force updating requirements."
     with prefix('workon %(venv)s' % env):
         run('git pull')
         if env.less:
@@ -59,14 +60,7 @@ def deploy():
     run("rm -rf %(projectdir)s" % env)
     run("git clone -b %(branch)s %(repo)s %(projectdir)s" % env )
     init_virtualenv()
-    update()
-
-def copyfixturesmedia():
-    local("cp -r %(projectname)s/fixtures/media/* public/media/" % env)
-
-def savemediatofixtures():
-    """Copy current user content to fixtures."""
-    local("cp -r %s %(projectname)s/fixtures/" % (settings.MEDIA_ROOT, env))
+    update(skipreq=False)
 
 def dumpdata():
     site.addsitedir(os.path.abspath(os.path.dirname(__file__)))

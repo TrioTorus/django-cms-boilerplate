@@ -1,4 +1,7 @@
-# Source this script, don't run it. Requires virtualenvwrapper!
+# Initializes development environment.
+# Source this script, don't run it.
+# Requires virtualenvwrapper!
+
 mkvirtualenv {{ project_name }}
-pip install -r requirements.txt
+pip install -r requirements_dev.txt
 setvirtualenvproject

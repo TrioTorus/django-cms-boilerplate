@@ -9,11 +9,11 @@ This is a starting template for Django 1.4 projects using (a slightly modified v
 
 * Collects static and media into public/{static,media} respectively.
 * Django admin activated by default.
-* Django timezone setting changed to UTC for sanity.
+* Django timezone setting changed to CET for sanity.
 * HTML 5 base template with simple 404 and 500 error templates.
-* Encourages the use of developer/machine specific `settings.py` file.
+* Encourages the use of split developer/stagine/production specific `settings' module.
 * Encourages the use of virtualenv and virtualenvwrapper.
-* Encourages the use of pip and `requirements.txt`.
+* Encourages the use of pip and separate developer and production requirements files.
 * Encourages the use of git.
 * Includes a .gitignore for the usual junk.
 * Automatically builds a README with installation notes.
@@ -38,6 +38,10 @@ This is a starting template for Django 1.4 projects using (a slightly modified v
     * To use django-cms:
     
             django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/django-cms --extension py,md,gitignore,dist,sh,fcgi yourprojectname
+
+## Initialize your development environment ##
+    
+    source bootstrap.sh
 
 {% endif %}
 # {{ project_name|title }} Django Project #

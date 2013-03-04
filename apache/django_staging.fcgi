@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 site.addsitedir(PROJECT_DIR)
 
 # Point to settings module
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ project_name }}settings.staging")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ project_name }}.settings.staging")
 
 # Switch to the directory of your project. (Optional.)
 os.chdir(PROJECT_DIR)

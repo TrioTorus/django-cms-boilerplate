@@ -206,17 +206,19 @@ CMS_TEMPLATES = (
 )
 
 CMS_PLACEHOLDER_CONF = {
-    'zijbalk': {
+    'sidebar': {
         'extra_context': {'nwords': 20},
+        'name': "Sidebar",
     },
 
     'banner_image': {
         'plugins': ['PicturePlugin'],
-        'extra_context': {'size': (1170, 557)},
+        # 'extra_context': {'size': (1170, 557)},
     },
 
-    'hoofdinhoud': {
-        'extra_context': {'size': (620, 296)},
+    'main-content': {
+        # 'extra_context': {'size': (620, 296)},
+        'name': "Hoofdinhoud",
     },
 
     'nieuwstekst': {

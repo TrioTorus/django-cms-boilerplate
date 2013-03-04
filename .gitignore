@@ -18,8 +18,10 @@ atlassian-ide-plugin.xml
 # Virtualenv
 *-env/
 
-# Sqlite
+
+# Databases
 *.sqlite
+*.sql
 
 #######################################
 #####   From HTML5 Boilerplate   ######

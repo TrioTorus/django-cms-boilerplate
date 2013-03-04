@@ -8,7 +8,7 @@ env.projectname = "{{ project_name }}"
 django.project('%(projectname)s' % env)
 from django.conf import settings
 env.repo = "git@bitbucket.org:dries/%(projectname)s" % env
-env.less = False
+env.less = True
 django.settings_module('%(projectname)s.settings.dev' % env )
 
 def production():
@@ -49,7 +49,7 @@ def update(skipreq=True):
         run('git pull')
         if env.less:
             run('lessc -x %(projectname)s/static/less/style.less > %(projectname)s/static/css/style.css' % env)
-        if not skipreq:
+        if skipreq in ("False", "false"):
             run('pip install -r requirements.txt --upgrade')
         run('./manage.py collectstatic --noinput --settings=%(settings_module)s' % env)
         run('cp apache/.htaccess public/')

@@ -23,8 +23,16 @@ MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
     # ...
 )
 
-INTERNAL_IPS = ('127.0.0.1',)
+class glob_list(list):
+    def __contains__(self, key):
+        for elt in self:
+            if fnmatch(key, elt): return True
+        return False
 
+INTERNAL_IPS = glob_list([
+    '127.0.0.1',
+    '192.168.0.*'
+    ])
 
 INSTALLED_APPS = INSTALLED_APPS + (
     'debug_toolbar',

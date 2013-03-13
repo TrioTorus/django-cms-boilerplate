@@ -1,4 +1,5 @@
 from .common import *
+from fnmatch import fnmatch
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

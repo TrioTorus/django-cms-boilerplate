@@ -1,0 +1,42 @@
+{% load i18n %}
+{% if form_definition.title %}<h1>{{ form_definition.title }}</h1>{% endif %}
+
+{% if messages %}
+
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    {{ message }}
+</div>
+{% endfor %}
+
+{% endif %}
+
+
+<div class="form_widget">
+<p>{{ form_definition.body }}</p>
+<form class="well" name="{{ form_definition.name }}" action="{{ form_definition.action }}" method="{{ form_definition.method }}">
+{% csrf_token %}
+    
+    {% for field in form %}
+    {% if not field.is_hidden %}
+    
+        <label for="{{ field.auto_id }}">
+            {% if field.field.required %}
+                <span class="required">{{ field.label }}</span>
+            {% else %}
+                {{ field.label }}
+            {% endif %}
+            {{ field.errors }}
+        </label>
+        {{ field }}
+        
+    {% else %}
+        {{ field }}
+    {% endif %}
+    {% endfor %}
+    <div></div>
+    <button type="submit" class="btn">{% if form_definition.submit_label %}{{ form_definition.submit_label }}{% else %}{% trans "Submit" %}{% endif %}</button> 
+</form>
+<br />
+</div>

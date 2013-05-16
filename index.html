@@ -1,97 +1,82 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Django-project-skel by chrislawlor</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
     <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <title>Django-project-skel by TrioTorus</title>
   </head>
+
   <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/chrislawlor/django-project-skel">View On GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/chrislawlor/django-project-skel/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/chrislawlor/django-project-skel/tarball/master">TAR</a></li>
-          <li class="title">DOWNLOADS</li>
-        </nav>
-      </div><!-- end header -->
+    <div id="container">
+      <div class="inner">
 
-    <div class="wrapper">
-
-      <section>
-        <div id="title">
+        <header>
           <h1>Django-project-skel</h1>
-          <p>Django project templates based on HTML5 Boilerplate, with options for LESS and Bootstrap</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/chrislawlor">chrislawlor</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
-        </div>
+          <h2>Django project skeleton based on HTML5 Boilerplate and Bootstrap</h2>
+        </header>
 
-        <h1>Django 1.4 with HTML5★Boilerplate Project Template</h1>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/TrioTorus/django-project-skel/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/TrioTorus/django-project-skel/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/TrioTorus/django-project-skel" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
 
-<h2>About</h2>
+        <hr>
 
-<p>This is a starting template for Django 1.4 projects using (a slightly modified version of) <a href="http://html5boilerplate.com">HTML5 Boilerplate</a>.</p>
+        <section id="main_content">
+          <h2>About</h2>
+
+<p>This is a starting Django project template for <a href="http://www.django-cms.org/">Django-CMS</a> projects based on <a href="http://html5boilerplate.com">HTML5 Boilerplate</a> and <a href="http://twitter.github.com/bootstrap/index.html">Bootstrap</a>.</p>
 
 <h2>Features</h2>
 
 <ul>
-<li>Global assets, web, templates and fixtures directory.</li>
+<li>Tinymce as textarea editor, with sanitized minimalistic look.</li>
 <li>Collects static and media into public/{static,media} respectively.</li>
 <li>Django admin activated by default.</li>
-<li>Django timezone setting changed to UTC for sanity.</li>
-<li>HTML 5 base template with simple 404 and 500 error templates.</li>
-<li>Discourages storing credentials and secrets in the repository.</li>
-<li>Encourages the use of developer/machine specific <code>settings.py</code> file.</li>
-<li>Encourages the use of virtualenv and virtualenvwrapper.</li>
-<li>Encourages the use of pip and <code>requirements.txt</code>.</li>
-<li>Encourages the use of git.</li>
+<li>Django timezone setting changed to CET for sanity.</li>
+<li>HTML 5 base template with simple 404 and 500 error templates, based on HTML5 boilerplate AND Bootstrap.</li>
+<li>Encourages the use of LESS css.</li>
+<li>Encourages the use of split developer/staging/production specific `settings' module.</li>
+<li>Encourages the use of pip and separate developer and production requirements files.</li>
+<li>Includes a simple but useful fabfile.</li>
+<li>Uses Pillow as a setuptools friendly PIL drop-in replacement</li>
 <li>Includes a .gitignore for the usual junk.</li>
 <li>Automatically builds a README with installation notes.</li>
-</ul><h2>How to use this template to create your project</h2>
+</ul><h2>Requirements</h2>
 
 <ul>
-<li>Install Django 1.4</li>
-<li>
-<p>Run the following one of the following commands, specifying your project name:</p>
+<li>Django &gt; 1.4</li>
+<li>Virtualenvwrapper</li>
+</ul><h2>Step 1: How to use this template to create your project</h2>
 
-<ul>
-<li>
-<p>To use plain CSS:</p>
+<p>Run the following command, specifying your project name:</p>
 
-<pre><code>django-admin.py startproject --template https://github.com/chrislawlor/django-project-skel/zipball/master --extension py,md,gitignore,dist yourprojectname
+<pre><code>django-admin.py startproject --template https://github.com/TrioTorus/django-project-skel/zipball/django-cms --extension py,md,gitignore,dist,sh,fcgi YOURPROJECTNAME
 </code></pre>
-</li>
-<li>
-<p>To use LESS:</p>
 
-<pre><code>django-admin.py startproject --template https://github.com/chrislawlor/django-project-skel/zipball/less --extension py,md,gitignore,dist yourprojectname
+<h2>Step 2: Initialize your development environment</h2>
+
+<p>Go into your newly created project folder and type:</p>
+
+<pre><code>source bootstrap.sh
 </code></pre>
-</li>
-<li>
-<p>To use Twitter's Bootstrap</p>
+        </section>
 
-<pre><code>django-admin.py startproject --template https://github.com/chrislawlor/django-project-skel/zipball/bootstrap --extension py,md,gitignore,dist yourprojectname
-</code></pre>
-</li>
-</ul>
-</li>
-</ul>
-      </section>
+        <footer>
+          Django-project-skel is maintained by <a href="https://github.com/TrioTorus">TrioTorus</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
 
+        
+      </div>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
   </body>
 </html>

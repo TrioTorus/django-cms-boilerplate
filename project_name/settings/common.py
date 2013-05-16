@@ -23,12 +23,10 @@ TIME_ZONE = 'Europe/Brussels'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'nl'
+LANGUAGE_CODE = 'nl-be'
 
 LANGUAGES = [
-##    ('en', 'English'),
     ('nl', 'Nederlands'),
-    # ('fr', 'Frans'),
 ]
 
 SITE_ID = 1
@@ -67,7 +65,9 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
 )
 
 # List of finder classes that know how to find static files in
@@ -75,6 +75,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # List of callables that know how to import templates from various sources.
@@ -95,7 +96,6 @@ MIDDLEWARE_CLASSES = (
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
-    # 'simple_translation.middleware.MultilingualGenericsMiddleware',
 )
 
 ROOT_URLCONF = '{{ project_name }}.urls'
@@ -106,27 +106,7 @@ WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
-    
-)
-
-#EMAIL
-EMAIL_HOST = "smtp.alwaysdata.com"
-EMAIL_PORT =  587
-EMAIL_HOST_USER = "no-reply@{{ project_name }}.be"
-EMAIL_HOST_PASSWORD = "DMLH08p"
-
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.contrib.messages.context_processors.messages',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.request',
-
-    'cms.context_processors.media',
-    'sekizai.context_processors.sekizai',
+    # Don't forget to use absolute paths, not relative paths.
 )
 
 INSTALLED_APPS = (
@@ -138,8 +118,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    
-    # 'ajax',
 
     # Django-cms:
     'cms',
@@ -151,16 +129,9 @@ INSTALLED_APPS = (
     'cms.plugins.link',
     'cms.plugins.picture',
     'cms.plugins.text',
-    # 'cmsplugin_blog',
-    # 'cmsplugin_gallery',
-    # 'inline_ordering',
     'cmsworkaround',
     'easy_thumbnails',
     'tinymce',
-    # 'tagging', # Dependancy of cmsplugin_blog
-    # 'simple_translation', # Dependancy of cmsplugin_blog
-    # 'djangocms_utils', # Dependancy of cmsplugin_blog
-
     'form_designer',
     'form_designer.contrib.cms_plugins.form_designer_form',
 )
@@ -193,6 +164,26 @@ LOGGING = {
         },
     }
 }
+
+# Non-default Django settings:
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.request',
+
+    'cms.context_processors.media',
+    'sekizai.context_processors.sekizai',
+)
+
+# EMAIL
+EMAIL_HOST = "smtp.alwaysdata.com"
+EMAIL_PORT =  587
+EMAIL_HOST_USER = "no-reply@{{ project_name }}.be"
+EMAIL_HOST_PASSWORD = "DMLH08p"
 
 # DJANGO-CMS settings:
 CMS_SEO_FIELDS = True
@@ -233,13 +224,6 @@ CMS_PLACEHOLDER_CONF = {
     }
     
 }
-
-# CMSPLUGIN_BLOG settings:
-JQUERY_UI_CSS = 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css'
-JQUERY_UI_JS = 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js'
-JQUERY_JS = 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js'
-CMSPLUGIN_BLOG_PLACEHOLDERS = ('nieuwstekst', 'nieuwsafbeelding')
-
 
 # Tinymce
 

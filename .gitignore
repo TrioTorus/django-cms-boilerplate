@@ -3,7 +3,6 @@
 *.pyo
 
 # Project
-/{{ project_name }}/settings.py
 /public/static
 /public/media
 
@@ -18,10 +17,16 @@ atlassian-ide-plugin.xml
 # Virtualenv
 *-env/
 
+# Eggs that occur when installing through pip install -e
+*.egg
+*.egg-info
 
 # Databases
 *.sqlite
 *.sql
+
+# Version file for source distribution
+RELEASE-VERSION
 
 #######################################
 #####   From HTML5 Boilerplate   ######

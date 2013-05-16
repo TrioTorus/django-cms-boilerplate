@@ -5,35 +5,41 @@ from fabric.contrib import django
 import site
 
 env.projectname = "{{ project_name }}"
+
 django.project('%(projectname)s' % env)
 from django.conf import settings
 env.repo = "git@bitbucket.org:dries/%(projectname)s" % env
 env.less = True
 django.settings_module('%(projectname)s.settings.dev' % env )
 
-def production():
-    """ Use production server settings """
-    
-    env['suffix'] = "prod"
-    env['hosts']=['urga@ssh.alwaysdata.com:22']
-    env['projectdir'] = "$HOME/src/%(projectname)s-%(suffix)s" % env
-    env['mediadir'] = "~/www/media-%(projectname)s-%(suffix)s" % env
-    env['branch'] = 'master'
-    env['venv'] = "%(projectname)s-%(suffix)s" % env
-    env['settings_module'] = "%(projectname)s.settings.%(suffix)s" % env
-    django.settings_module(env['settings_module'])
-    
+def localhost():
+    """ Use development server settings """
+    env['projectdir'] = os.path.abspath( __file__ )
+
 def staging():
     """ Use staging server settings """
     
     env['suffix'] = "staging"
     env['hosts']=['urga@ssh.alwaysdata.com:22']
-    env['projectdir'] = "$HOME/src/%(projectname)s-%(suffix)s" % env
-    env['mediadir'] = "~/www/media-%(projectname)s-%(suffix)s" % env
+    env['projectdir'] = "$HOME/src/%(projectname)s-%(suffix)s" % env #FIXME: should draw setting from django settings
+    env['mediadir'] = "~/www/media-%(projectname)s-%(suffix)s" % env #FIXME: should draw setting from django settings
     env['branch'] = 'develop'
     env['venv'] = "%(projectname)s-%(suffix)s" % env
     env['settings_module'] = "%(projectname)s.settings.%(suffix)s" % env
     django.settings_module(env['settings_module'])
+
+def production():
+    """ Use production server settings """
+    
+    env['suffix'] = "prod"
+    env['hosts']=['urga@ssh.alwaysdata.com:22']
+    env['projectdir'] = "$HOME/src/%(projectname)s-%(suffix)s" % env #FIXME: should draw setting from django settings
+    env['mediadir'] = "~/www/media-%(projectname)s-%(suffix)s" % env #FIXME: should draw setting from django settings
+    env['branch'] = 'master'
+    env['venv'] = "%(projectname)s-%(suffix)s" % env
+    env['settings_module'] = "%(projectname)s.settings.%(suffix)s" % env
+    django.settings_module(env['settings_module'])
+
 
 def init_virtualenv():
     run("mkvirtualenv %(venv)s" % env)

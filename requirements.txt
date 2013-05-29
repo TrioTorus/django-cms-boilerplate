@@ -1,16 +1,27 @@
-django<1.5
+django==1.5.1
 psycopg2==2.4.6
-south
+dj-database-url==0.2.1
+south==0.8.1
 flup
 
-Pillow==1.7.8
-easy-thumbnails==1.1
+Pillow==2.0.0
+easy-thumbnails==1.2
 
 django-cms==2.3.5
-django-tinymce==1.5.1b4
+
+# Default Plugins:
+djangocms-text-ckeditor==1.0.9
+
+
 
 # Plugins, uncomment as neeeded
+###############################
+
 # cmsplugin-blog==1.1.2
 # cmsplugin_gallery==0.5.3
-git+git://github.com/TrioTorus/django-form-designer.git#egg=django-form-designer
+
+# Contactform options:
+# --------------------
+# git+git://github.com/TrioTorus/django-form-designer.git#egg=django-form-designer
+# cmsplugin-contact
 

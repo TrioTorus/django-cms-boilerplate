@@ -51,7 +51,7 @@ MEDIA_ROOT = join(REPO_ROOT, 'public', 'media')
 MEDIA_URL = '/media/'
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '{{ secret_key }}'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files

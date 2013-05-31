@@ -62,38 +62,6 @@ Describe {{ project_name }} here.
 
 ## Installation ##
 
-### Clone the code ###
-
-Obtain the url to your git repository.
-
-        git clone <URL_TO_GIT_RESPOSITORY> {{ project_name }}
-
-### Creating the environment ###
-
-Create a virtual python environment for the project. If you're using virtualenvwrapper,
-it's simple. There is a bash script in the repo that you need to source:
-
-        source bootstrap.sh
-
-### Install requirements ###
-
-        cd {{ project_name }}
-        pip install -r requirements.txt
-
-### Configure project ###
-When you're finished installing requirements, you'll need to set up your local settings.py file:
-
-        cp {{ project_name }}/settings.py.dist {{ project_name }}/settings.py
-        vim {{ project_name }}/settings.py
-
-### Sync database ###
-After you configure your local settings (database, etc.) you're ready to run `syncdb`:
-
-        python manage.py syncdb
-
-## Running ##
-Once that's completed you can boot up the dev server:
-
-        python manage.py runserver
+Check instructions in INSTALL.md
 
 Open browser to [http://127.0.0.1:8000](http://127.0.0.1:8000) -- if all went well you should see the "It works!" page.

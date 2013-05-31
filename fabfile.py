@@ -1,7 +1,7 @@
 from __future__ import with_statement
 import os
 from os.path import abspath, basename, dirname
-from fabric.api import env, local, run, require
+from fabric.api import env, local, run, require, prompt, cd, prefix
 from fabric.contrib import django
 import site
 from django.utils.crypto import get_random_string
@@ -13,7 +13,7 @@ env['projectname'] = basename(dirname(abspath(__file__)))
 env["repo"] = "git@bitbucket.org:dries/%(projectname)s" % env
 env["less"] = True
 env["db_engine"] = "postgres" # Use 'postgres', 'mysql' or 'sqlite'
-env["remote_username"] = "urga"
+env["user"] = "urga"
 
 
 # ENVIRONMENTS
@@ -24,7 +24,8 @@ def localhost():
 
     env['suffix'] = "dev"
     env['projectdir'] = dirname(abspath( __file__ ))
-    env.['run'] = local
+    env['run'] = local
+    env['venv'] = "%(projectname)s" % env
     env['requirementsfile'] = "requirements_%(suffix)s.txt" % env
     env['db_user'] = "%(projectname)s" % env
     env["db_host"] = "localhost"
@@ -36,7 +37,7 @@ def staging():
     
     env['suffix'] = "staging"
     env['run'] = run
-    env['hosts']=['%(remote_username)s@ssh.alwaysdata.com:22' % env, ]
+    env['hosts']=['ssh.alwaysdata.com', ]
     env['basedir']= os.path.join(os.environ['HOME'], "www-%(suffix)" % env)
     env['projectdir'] = os.path.join(env.basedir, env.projectname)
     env['mediadir'] = os.path.join(env.basedir, env.projectname+"-media")
@@ -52,7 +53,7 @@ def production():
     """ Use production server settings """
     
     env['suffix'] = "prod"
-    env['hosts']=['%(remote_username)s@ssh.alwaysdata.com:22' % env, ]
+    env['hosts']=['ssh.alwaysdata.com', ]
     env['basedir']= os.path.join(os.environ['HOME'], "www")
     env['projectdir'] = os.path.join(env.basedir, env.projectname)
     env['mediadir'] = os.path.join(env.basedir, env.projectname+"-media")
@@ -67,39 +68,40 @@ def production():
 # HELPERS
 #########
 def _generate_key():
-    
-    chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
+    """Generate a random key just like django-startproject does it."""
+
+    chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*-_=+' #Don't allow '()' in the key to avoid problems with setting environment
     return get_random_string(50, chars)
 
 
 def _generate_db_url():
     
-    print "Setting up Database for %s" % env.suffix
+    print "DATABASE SETTINGS for: %s" % env.suffix
     print "Engine: %s" % env.db_engine
     print "User: %s" % env.db_user
-    print "Hostname: %s" % env.db_hostname
+    print "Hostname: %s" % env.db_host
     print "Database name: %s" % env.db_name
 
-    password = raw_input('DB Password: [Default: %s] ' % env.projectname)
-    db_password = password or env.projectname
+    db_password = prompt('DB Password: ', default=env.projectname)
     
-    return "%s://%s:%s@%s/%s" % (env.db_engine, db_user, db_password, db_hostname, db_name)
+    return "%s://%s:%s@%s/%s" % (env.db_engine, env.db_user, db_password, env.db_host, env.db_name)
 
 # COMMANDS
 ##########
 
 def bootstrap():
     require("venv", provided_by=[localhost, staging, production])
-    env.run("mkvirtualenv %(venv)s" % env)
-    with cd(env['projectdir']:
-        env.run("setvirtualenvproject")
+    with cd("%(projectdir)s" % env):
+        # For this to work, virtualenvwrapper.sh needs to be on the system path
+        env.run("source virtualenvwrapper.sh && mkvirtualenv %(venv)s && setvirtualenvproject" % env)
+    with prefix("source virtualenvwrapper.sh && workon %(venv)s" % env):
         env.run("pip install -r %(requirementsfile)s" % env)
-        env.run("echo 'export DJANGO_SETTINGS_MODULE=%(project_name)s.settings.%(suffix)s'>>$WORKON_HOME/%(venv)s/bin/postactivate" % env)
-        env.run("echo 'unset DJANGO_SETTINGS_MODULE'>>$WORKON_HOME/%(venv)s/bin/postdeactivate ")
-        env.run("echo 'export DJANGO_SECRET_KEY=%s'>>$WORKON_HOME/%(venv)s/bin/postactivate" % _generate_key())
-        env.run("echo 'unset DJANGO_SECRET_KEY'>>$WORKON_HOME/%(venv)s/bin/postdeactivate ")
-        env.run("echo 'export DATABASE_URL=%s'>>$WORKON_HOME/%(venv)s/bin/postactivate" % _generate_db_url())
-        env.run("echo 'unset DATABASE_URL'>>$WORKON_HOME/%(venv)s/bin/postdeactivate ")
+        env.run("echo 'export DJANGO_SETTINGS_MODULE=%(projectname)s.settings.%(suffix)s'>>$WORKON_HOME/%(venv)s/bin/postactivate" % env)
+        env.run("echo 'unset DJANGO_SETTINGS_MODULE'>>$WORKON_HOME/%(venv)s/bin/postdeactivate" % env)
+        env.run("echo 'export DJANGO_SECRET_KEY=%s'>>$WORKON_HOME/%s/bin/postactivate" % (_generate_key(), env.venv))
+        env.run("echo 'unset DJANGO_SECRET_KEY'>>$WORKON_HOME/%(venv)s/bin/postdeactivate " % env)
+        env.run("echo 'export DATABASE_URL=%s'>>$WORKON_HOME/%s/bin/postactivate" % (_generate_db_url(), env.venv))
+        env.run("echo 'unset DATABASE_URL'>>$WORKON_HOME/%(venv)s/bin/postdeactivate " % env)
         env.run("chmod +x ./manage.py")
         
 
@@ -127,7 +129,7 @@ def deploy():
 def dumpdata():
     "Dump sql to local file named dumpdata.sql using pg_dump."
 
-    site.addsitedir(os.path.abspath(os.path.dirname(__file__)))
+    site.addsitedir(abspath(os.path.dirname(__file__)))
     from django.conf import settings
     local("PGPASSWORD=%s pg_dump -O -x -h %s -U %s %s > dumpdata.sql" % (
         settings.DATABASES['default']['PASSWORD'],
@@ -138,7 +140,7 @@ def dumpdata():
     )
 
 def restoredata():
-    site.addsitedir(os.path.abspath(os.path.dirname(__file__)))
+    site.addsitedir(abspath(os.path.dirname(__file__)))
     from django.conf import settings
     local("PGPASSWORD=%s psql -1 -h %s -U %s %s < dumpdata.sql" % (
         settings.DATABASES['default']['PASSWORD'],

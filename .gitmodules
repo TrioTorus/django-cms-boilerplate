@@ -1,3 +1,3 @@
 [submodule "static/bootstrap"]
 	path = static/bootstrap
-	url = git@github.com:TrioTorus/bootstrap.git
+	url = git@github.com:driesdesmet/bootstrap.git

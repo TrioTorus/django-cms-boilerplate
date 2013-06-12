@@ -5,6 +5,7 @@
 # Project
 /public/static
 /public/media
+/sql
 
 # Common IDEs
 *.swp

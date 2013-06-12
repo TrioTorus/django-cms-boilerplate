@@ -35,7 +35,7 @@ This is a starting Django project template for [Django-CMS](http://www.django-cm
 
 Run the following command, specifying your project name:
 
-    django-admin.py startproject --template https://github.com/TrioTorus/django-cms-boilerplate/archive/master.zip --extension py,md,gitignore,dist,fcgi YOURPROJECTNAME
+    django-admin.py startproject --template https://github.com/driesdesmet/django-cms-boilerplate/archive/master.zip --extension py,md,gitignore,dist,fcgi YOURPROJECTNAME
 
 
 

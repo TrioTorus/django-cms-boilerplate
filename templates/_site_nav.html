@@ -1,8 +1,7 @@
 {% load menu_tags %}
 {# This is the standard bootstrap menu #}
 
-
-
+<nav class="navbar navbar-inverse navbar-fixed-top" >
   <div class="navbar-inner">
     <div class="container">
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -11,7 +10,7 @@
         <span class="icon-bar"></span>
       </a>
       
-      <a class="brand" href="#">Project name</a>
+      <a class="brand" href="#">{{ project_name }}</a>
       
       <div class="nav-collapse">
         <ul id="main-nav" class="nav">
@@ -20,3 +19,4 @@
       </div><!--/.nav-collapse -->
     </div>
   </div>
+</nav>

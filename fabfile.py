@@ -164,7 +164,7 @@ def update(skipreq=True):
     with prefix('workon %(venv)s' % env):
         env.run('git pull')
         if env.less:
-            run('lessc -x %(projectname)s/static/less/style.less > %(projectname)s/static/css/style.css' % env)
+            run('lessc -x %(projectname)s/static/less/theme-default/style.less > %(projectname)s/static/theme-default/css/style.css' % env)
         if skipreq in ("False", "false"): # Have to test against a string, because the skipreq parameter is not a boolean, but a string.
             execute(update_requirements)
         env.run('./manage.py collectstatic --noinput --no-default-ignore')

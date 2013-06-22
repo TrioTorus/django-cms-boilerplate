@@ -120,13 +120,14 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     #Django CMS
-    'cms.middleware.multilingual.MultilingualURLMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
+    'cms.middleware.language.LanguageCookieMiddleware',
 )
 
 DJANGO_APPS = (
@@ -235,22 +236,4 @@ CMS_PLACEHOLDER_CONF = {
         }
     }
     
-}
-
-# Tinymce
-
-TINYMCE_DEFAULT_CONFIG = {
-    'theme': "simple",
-    'skin' : "urga",
-    "theme_advanced_resizing" : "true",
-    'height': "300px",
-    # "content_css" : STATIC_URL + "css/bootstrap.css",
-    "content_css" : STATIC_URL + "css/style.css",
-    "plugins" : "paste",
-    "paste_text_sticky": "true",
-    "paste_text_sticky_default": "true",
-    "theme_advanced_blockformats" : "p,h1,h2,h3,h4,h5,h6,address,code,blockquote",
-    "theme_advanced_buttons1" : 
-        "bold,italic,underline,strikethrough,removeformat,separator,bullist,numlist,outdent,indent,separator,undo,redo,separator,hr,charmap,visualaid,separator,formatselect,removeformat,code,help",
-    # "paste_auto_cleanup_on_paste" : "true",
 }

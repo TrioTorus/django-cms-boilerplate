@@ -1,0 +1,6 @@
+{% load cms_tags %}
+<article class="span{{ instance.width }} column">
+{% for plugin in instance.child_plugin_instances %}
+    	{% render_plugin plugin %}
+{% endfor %}
+</article>

@@ -5,8 +5,10 @@ installed on your computer. Then do the following:
 
     $ git clone git@bitbucket.org:dries/{{ project_name}}.git
     $ cd {{ project_name}}
-    $ fab bootstrap
+    $ fab localhost bootstrap
     $ workon {{ project_name}}
+    $ git init
+    $ fab localhost db_create
 
 
 Create the tables

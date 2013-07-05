@@ -24,20 +24,24 @@ env["db_engine"] = "postgres" # Use 'postgres', 'mysql' or 'sqlite'
 
 
 def _set_alwaysdata_env():
+    if env.settings == "staging":
+        env['suffix'] = "-%(settings)s" % env
+    else:
+        env['suffix'] = ""
     env['run'] = run
     env['accountname'] = "urga"
     env['hosts']=['%(accountname)s@ssh.alwaysdata.com' % env, ]
-    env['venv'] = "%(projectname)s" % env
+    env['venv'] = "%(projectname)s%(suffix)s" % env
     env['requirementsfile'] = "requirements.txt"
 
     env['homedir']=join("/home", "%(accountname)s" % env )
     env['basedir']= join(env.homedir, "www")
-    env['projectdir'] = join(env.basedir, env.projectname)
-    env['staticdir'] = join(env.basedir, env.projectname+"-static")
+    env['projectdir'] = join(env.basedir, env.projectname + env.suffix)
+    env['staticdir'] = join(env.basedir, env.projectname + "-static")
 
     env['db_user'] = "%(accountname)s_%(projectname)s" % env
     env["db_host"] = "adpostgresql.urga.be"
-    env['db_name'] = "%(accountname)s_%(projectname)s" % env
+    env['db_name'] = "%(accountname)s_%(projectname)s%(suffix)s" % env
 
 # ENVIRONMENTS
 ##############
@@ -63,7 +67,6 @@ def staging():
     Use staging server settings
     """
     env['settings'] = "staging"
-    env['projectname'] = "%(projectname)s-%(settings)s" % env
     env['branch'] = 'develop'
     _set_alwaysdata_env()
 
@@ -114,7 +117,7 @@ def _fn():
     return inspect.stack()[1][3]
 
 def _db_getdict():
-    if not env.settings=="dev":
+    if not env.settings == "dev":
         db_url = virtualenv("echo $DATABASE_URL")
     else:
         db_url = os.environ['DATABASE_URL']
@@ -164,7 +167,7 @@ def update(skipreq=True):
     with prefix('workon %(venv)s' % env):
         env.run('git pull')
         if env.less:
-            run('lessc -x %(projectname)s/static/less/theme-default/style.less > %(projectname)s/static/theme-default/css/style.css' % env)
+            run('lessc -x %(projectdir)s/static/less/theme-default/style.less > %(projectdir)s/static/css/theme-default/style.css' % env)
         if skipreq in ("False", "false"): # Have to test against a string, because the skipreq parameter is not a boolean, but a string.
             execute(update_requirements)
         env.run('./manage.py collectstatic --noinput --no-default-ignore')
@@ -180,6 +183,13 @@ def deploy():
     execute(bootstrap)
     update(skipreq=False)
 
+def getmedia():
+    require("settings", provided_by=["staging", "production"])
+    local('rsync -r -L --delete -vv %(host_string)s:%(staticdir)s/media/ public/media' % env)
+
+def putmedia():
+    require("settings", provided_by=["staging", "production"])
+    local('rsync -r -L --delete -vv public/media/ %(host_string)s:%(staticdir)s/media/' % env)
 
 # Database operations
 #####################
@@ -212,11 +222,3 @@ def db_restore(dumpfile="sql/dumpdata.sql"):
     context = _db_getdict()
     context['DUMPFILE'] = dumpfile
     local("PGPASSWORD=%(PASSWORD)s psql -1 -h %(HOST)s -U %(USER)s %(NAME)s < %(DUMPFILE)s" % context )
-
-def getmedia():
-    require("settings", provided_by=["staging", "production"])
-    local('rsync -r -L --delete -vv %(host_string)s:%(staticdir)s/media/ public/media' % env)
-
-def putmedia():
-    require("settings", provided_by=["staging", "production"])
-    local('rsync -r -L --delete -vv public/media/ %(host_string)s:%(staticdir)s/media/' % env)

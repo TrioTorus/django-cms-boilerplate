@@ -23,6 +23,6 @@ djangocms-column==1.1.2
 
 # Contactform options:
 # --------------------
-# git+git://github.com/TrioTorus/django-form-designer.git#egg=django-form-designer
+# git+ssh://git@github.com/driesdesmet/django-form-designer.git
 # cmsplugin-contact
 

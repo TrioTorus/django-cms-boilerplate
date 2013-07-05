@@ -6,6 +6,8 @@
 /public/static
 /public/media
 /sql
+/fcgi/django.fcgi
+/static/css/*.css
 
 # Common IDEs
 *.swp

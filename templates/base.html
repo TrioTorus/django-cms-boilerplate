@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>Lobeau Architect | {% block title %}{% endblock %}</title>
+  <title>{{ project_name }} | {% block title %}{% endblock %}</title>
   <meta name="description" content="{% block meta_description %}TODO: Put your meta description in here. It's going to be used as default for pages that don't have a description{% endblock %}">
   <meta name="keywords" content="{% block meta_keywords %}TODO: Put your meta keywords in here. It's going to be used as default for pages that don't have a description{% endblock %}" />
   <meta name="viewport" content="width=device-width">
@@ -19,7 +19,7 @@
     <link rel="stylesheet/less" href="{{ STATIC_URL }}less/theme-default/style.less">
     <script src="{{ STATIC_URL }}js/vendor/less-1.3.3.min.js"></script>
   {% else %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/theme-default/style.css" />
   {% endif %}
   <style type="text/css">
       

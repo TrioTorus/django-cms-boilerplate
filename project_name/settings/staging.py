@@ -9,7 +9,7 @@ ALLOWED_HOSTS = ['staging.{{ project_name }}.be']
 ########## STATIC FILE CONFIGURATION
 STATIC_ROOT = normpath(join(dirname(SITE_ROOT), basename(SITE_ROOT) + "-static"))
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-url
-STATIC_URL = 'http://static-staging.{{ project_name }}.be/'
+STATIC_URL = 'http://staging-static.{{ project_name }}.be/'
 ########## END STATIC FILE CONFIGURATION
 
 ########## MEDIA CONFIGURATION

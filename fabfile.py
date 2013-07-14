@@ -37,7 +37,7 @@ def _set_alwaysdata_env():
     env['homedir']=join("/home", "%(accountname)s" % env )
     env['basedir']= join(env.homedir, "www")
     env['projectdir'] = join(env.basedir, env.projectname + env.suffix)
-    env['staticdir'] = join(env.basedir, env.projectname + "-static")
+    env['staticdir'] = join(env.basedir, env.projectname + env.suffix + "-static")
 
     env['db_user'] = "%(accountname)s_%(projectname)s" % env
     env["db_host"] = "adpostgresql.urga.be"

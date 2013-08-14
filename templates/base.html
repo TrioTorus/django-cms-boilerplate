@@ -1,0 +1,126 @@
+{% load i18n sekizai_tags %}
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="{{ LANGUAGE_CODE }}"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="{{ LANGUAGE_CODE }}"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="{{ LANGUAGE_CODE }}"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ LANGUAGE_CODE }}"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>{{ project_name }} | {% block title %}{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}TODO: Put your meta description in here. It's going to be used as default for pages that don't have a description{% endblock %}">
+  <meta name="keywords" content="{% block meta_keywords %}TODO: Put your meta keywords in here. It's going to be used as default for pages that don't have a description{% endblock %}" />
+  <meta name="viewport" content="width=device-width">
+  
+  <link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL}}favicon.ico" />
+
+  {% if debug %}
+    <link rel="stylesheet/less" href="{{ STATIC_URL }}less/theme-default/style.less">
+    <script src="{{ STATIC_URL }}js/vendor/less-1.3.3.min.js"></script>
+  {% else %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/theme-default/style.css" />
+  {% endif %}
+  <style type="text/css">
+      
+    </style>
+  {% render_block "css" %}
+
+  <script src="{{ STATIC_URL }}js/vendor/modernizr-2.6.2.min.js"></script>
+  
+  {% block extra_head %}{% endblock %}
+
+  
+</head>
+<body>
+<!--[if lt IE 7]>
+  <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+  
+{% block cms_toolbar %}{% endblock cms_toolbar %}
+<div id="page" class="{% block pageclass %}{% endblock %}">
+  {% include "_site-nav.html" %}
+
+  <header id="main-header" class="container">
+    {% block main-header %}
+    <div class="hero-unit">
+      <h1>Hello, world!</h1>
+      <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+      <p><a href="#" class="btn btn-primary btn-large">Learn more »</a></p>
+    </div>
+    {% endblock %}
+  </header>
+  
+  <div id="main-content" class="container">
+    {% block main-content %}
+    <section class="row">
+      <div class="span4">
+        <h2>Heading</h2>
+        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+        <p><a class="btn" href="#">View details »</a></p>
+      </div>
+      <div class="span4">
+        <h2>Heading</h2>
+        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+        <p><a class="btn" href="#">View details »</a></p>
+     </div>
+      <div class="span4">
+        <h2>Heading</h2>
+        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p><a class="btn" href="#">View details »</a></p>
+      </div>
+    </section>
+    {% endblock %}
+  </div>
+
+
+
+<footer id="main-footer" class="container">
+  {% block footer %}
+  <hr />
+  {% if debug %}
+  {% include 'includes/debug.html' %}
+{% endif %}
+  <p>&copy; Company 2012</p>
+  {% endblock %}
+</footer>
+
+</div> <!-- /page -->
+
+{% if debug %}
+  <script src="{{ STATIC_URL }}js/vendor/jquery-1.9.1.min.js"></script>
+{% else %}
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+{% endif %}
+
+<script src="{{ STATIC_URL }}js/plugins.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap-transition.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap-alert.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap-modal.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap-dropdown.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap-scrollspy.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap-tab.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap-tooltip.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap-popover.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap-button.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap-collapse.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap-carousel.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap-typeahead.js"></script>
+<script src="{{ STATIC_URL }}js/main.js"></script>
+
+{% render_block "js" %}
+<!-- end scripts -->
+
+{% if not debug %}
+  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+  <script>
+      var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+      g.src='//www.google-analytics.com/ga.js';
+      s.parentNode.insertBefore(g,s)}(document,'script'));
+  </script>
+{% endif %}
+</body>
+</html>

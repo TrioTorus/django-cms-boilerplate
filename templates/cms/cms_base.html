@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n cms_tags %}
+
+{% block title %}{% page_attribute title %}{% endblock %}
+
+{% block meta_description %}{% page_attribute meta_description as description %}{{ description|default:block.super }}{% endblock %}
+
+{% block meta_keywords %}{% page_attribute meta_keywords as keywords %}{{ keywords|default:block.super }}{% endblock %}
+
+
+
+{% block cms_toolbar %}
+	{% cms_toolbar %}
+{% endblock %}
+

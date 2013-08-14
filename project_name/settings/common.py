@@ -1,7 +1,10 @@
-# Global settings for {{ project_name }} project.
-from os.path import abspath, dirname, join
+# Django settings for vectis project.
+from os.path import normpath, dirname, abspath, join
+import os
+import dj_database_url
 
-REPO_ROOT = dirname(dirname(dirname(abspath( __file__ ))))
+# Absolute filesystem path to the top-level project folder:
+SITE_ROOT = dirname(dirname(dirname(abspath(__file__))))
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -11,6 +14,8 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+
+DATABASES = {'default': dj_database_url.config()}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -23,11 +28,7 @@ TIME_ZONE = 'Europe/Brussels'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'nl-be'
-
-LANGUAGES = [
-    ('nl', 'Nederlands'),
-]
+LANGUAGE_CODE = 'nl'
 
 SITE_ID = 1
 
@@ -36,38 +37,21 @@ SITE_ID = 1
 USE_I18N = True
 
 # If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale.
+# calendars according to the current locale
 USE_L10N = True
 
-# If you set this to False, Django will not use timezone-aware datetimes.
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
+########## END GENERAL CONFIGURATION
 
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-MEDIA_ROOT = join(REPO_ROOT, 'public', 'media')
+LANGUAGES = (
+    ('nl', 'Nederlands'),
+)
 
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/media/'
-
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = '{{ secret_key }}'
-
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = join(REPO_ROOT, 'public', 'static')
-
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
-
-# Additional locations of static files
+########## STATIC FILE CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    normpath(join(SITE_ROOT, 'static')),
 )
 
 # List of finder classes that know how to find static files in
@@ -75,42 +59,78 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+########## END STATIC FILE CONFIGURATION
+
+########## SECRET CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
+# Note: This key only used for development and testing.
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+########## END SECRET CONFIGURATION
+
+########## SITE CONFIGURATION
+# Hosts/domain names that are valid for this site
+# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = []
+########## END SITE CONFIGURATION
+
+########## FIXTURE CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-FIXTURE_DIRS
+FIXTURE_DIRS = (
+    normpath(join(SITE_ROOT, 'fixtures')),
+)
+########## END FIXTURE CONFIGURATION
+
+########## TEMPLATE CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
+    'django.core.context_processors.request',
+
+    # Django CMS
+    'cms.context_processors.media',
+    'sekizai.context_processors.sekizai',
 )
 
-# List of callables that know how to import templates from various sources.
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 )
 
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
+TEMPLATE_DIRS = (
+    normpath(join(SITE_ROOT, 'templates')),
+)
+########## END TEMPLATE CONFIGURATION
+
+ROOT_URLCONF = '{{ project_name }}.urls'
+
 MIDDLEWARE_CLASSES = (
+    
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'cms.middleware.multilingual.MultilingualURLMiddleware',
+    #Django CMS
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
+    'cms.middleware.language.LanguageCookieMiddleware',
 )
 
-ROOT_URLCONF = '{{ project_name }}.urls'
-
-# Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
-
-INSTALLED_APPS = (
-    '{{ project_name }}',
+DJANGO_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -118,8 +138,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+)
 
-    # Django-cms:
+THIRD_PARTY_APPS = (
+
+    # Django CMS:
     'cms',
     'mptt',
     'menus',
@@ -129,12 +152,13 @@ INSTALLED_APPS = (
     'cms.plugins.link',
     'cms.plugins.picture',
     'cms.plugins.text',
-    'cmsworkaround',
     'easy_thumbnails',
-    'tinymce',
-    'form_designer',
-    'form_designer.contrib.cms_plugins.form_designer_form',
 )
+
+LOCAL_APPS = (
+)
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -165,19 +189,8 @@ LOGGING = {
     }
 }
 
-# Non-default Django settings:
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.contrib.messages.context_processors.messages',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.request',
-
-    'cms.context_processors.media',
-    'sekizai.context_processors.sekizai',
-)
+# Python dotted path to the WSGI application used by Django's runserver.
+WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 
 # EMAIL
 EMAIL_HOST = "smtp.alwaysdata.com"
@@ -223,22 +236,4 @@ CMS_PLACEHOLDER_CONF = {
         }
     }
     
-}
-
-# Tinymce
-
-TINYMCE_DEFAULT_CONFIG = {
-    'theme': "simple",
-    'skin' : "urga",
-    "theme_advanced_resizing" : "true",
-    'height': "300px",
-    # "content_css" : STATIC_URL + "css/bootstrap.css",
-    "content_css" : STATIC_URL + "css/style.css",
-    "plugins" : "paste",
-    "paste_text_sticky": "true",
-    "paste_text_sticky_default": "true",
-    "theme_advanced_blockformats" : "p,h1,h2,h3,h4,h5,h6,address,code,blockquote",
-    "theme_advanced_buttons1" : 
-        "bold,italic,underline,strikethrough,removeformat,separator,bullist,numlist,outdent,indent,separator,undo,redo,separator,hr,charmap,visualaid,separator,formatselect,removeformat,code,help",
-    # "paste_auto_cleanup_on_paste" : "true",
 }

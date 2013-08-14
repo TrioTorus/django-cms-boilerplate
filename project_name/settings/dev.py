@@ -1,43 +1,54 @@
 from .common import *
 from fnmatch import fnmatch
+import dj_database_url
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 THUMBNAIL_DEBUG = DEBUG
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+########## MEDIA CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
+MEDIA_ROOT = normpath(join(SITE_ROOT, 'public', 'media'))
 
-DATABASES = {
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+MEDIA_URL = '/media/'
+########## END MEDIA CONFIGURATION
+
+
+########## STATIC FILE CONFIGURATION
+STATIC_ROOT = normpath(join(SITE_ROOT, 'public', 'static'))
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#static-url
+STATIC_URL = '/static/'
+########## END STATIC FILE CONFIGURATION
+
+
+########## E-MAIL CONFIGURATION
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+########## END E-MAIL CONFIGURATION
+
+########## CACHE CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
+CACHES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '{{ project_name }}',                      # Or path to database file if using sqlite3.
-        'USER': '{{ project_name }}',                      # Not used with sqlite3.
-        'PASSWORD': '{{ project_name }}',                  # Not used with sqlite3.
-        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     }
 }
+########## END CACHE CONFIGURATION
 
-MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
-    # ...
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-    # ...
-)
-
-class glob_list(list):
-    def __contains__(self, key):
-        for elt in self:
-            if fnmatch(key, elt): return True
-        return False
-
-INTERNAL_IPS = glob_list([
-    '127.0.0.1',
-    '192.168.0.*'
-    ])
-
-INSTALLED_APPS = INSTALLED_APPS + (
+########## TOOLBAR CONFIGURATION
+# See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
+INSTALLED_APPS += (
     'debug_toolbar',
 )
+
+# See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
+INTERNAL_IPS = ('127.0.0.1',)
+
+# See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
+MIDDLEWARE_CLASSES += (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+)
+########## END TOOLBAR CONFIGURATION
 
 DEBUG_TOOLBAR_CONFIG = {
 	'INTERCEPT_REDIRECTS': False,

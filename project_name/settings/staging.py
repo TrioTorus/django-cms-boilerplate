@@ -1,14 +1,22 @@
 from .common import *
+from os.path import normpath, dirname, join, basename
+import dj_database_url
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'urga_{{ project_name }}-staging',                      # Or path to database file if using sqlite3.
-        'USER': 'urga_{{ project_name }}',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': 'adpostgresql.urga.be',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
+DATABASES['default'] =  dj_database_url.config()
 
 ALLOWED_HOSTS = ['staging.{{ project_name }}.be']
+
+########## STATIC FILE CONFIGURATION
+STATIC_ROOT = normpath(join(dirname(SITE_ROOT), basename(SITE_ROOT) + "-static"))
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#static-url
+STATIC_URL = 'http://staging-static.{{ project_name }}.be/'
+########## END STATIC FILE CONFIGURATION
+
+########## MEDIA CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
+MEDIA_ROOT = normpath(join(dirname(SITE_ROOT), basename(SITE_ROOT)+"-static", "media"))
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+MEDIA_URL = STATIC_URL + 'media/'
+########## END MEDIA CONFIGURATION
+
